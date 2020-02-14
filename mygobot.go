@@ -30,7 +30,7 @@ func main() {
 		case update := <-updChan:
 			text := update.Message.Text
 			if text != "" {
-				replay := fmt.Sprintf("You said me %s? Fuck you %s!", update.Message.Text, update.Message.From.FirstName)
+				replay := fmt.Sprintf("%s? You are so annoying %s!", update.Message.Text, update.Message.From.FirstName)
 				bot.Send(tgbotapi.NewMessage(update.Message.Chat.ID, replay))
 			}
 		}
