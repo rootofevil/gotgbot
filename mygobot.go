@@ -29,10 +29,32 @@ func main() {
 		select {
 		case update := <-updChan:
 			text := update.Message.Text
-			if text != "" {
-				replay := fmt.Sprintf("%s? You are so annoying %s!", update.Message.Text, update.Message.From.FirstName)
-				bot.Send(tgbotapi.NewMessage(update.Message.Chat.ID, replay))
+			chatID := update.Message.Chat.ID
+			var waitResponse bool = false
+			if update.Message.IsCommand() == true {
+				processCommand(bot, update.Message.Command(), chatID, &waitResponse)
+				bot.
+			} else {
+				if text != "" {
+					replay := fmt.Sprintf("%s? You are so annoying %s!", update.Message.Text, update.Message.From.FirstName)
+					bot.Send(tgbotapi.NewMessage(update.Message.Chat.ID, replay))
+				}
 			}
 		}
 	}
+}
+
+func processCommand(bot *tgbotapi.BotAPI, command string, chatID int64, wait *bool) {
+	bot.Send(tgbotapi.NewMessage(chatID, "got command"))
+	var replay string
+	switch command {
+	case "subscribe":
+		fmt.Println(chatID)
+		fmt.Println(command)
+		replay = command
+	default:
+		replay = "I don't know what do you want"
+	}
+
+	bot.Send(tgbotapi.NewMessage(chatID, replay))
 }
