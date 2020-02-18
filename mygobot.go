@@ -33,7 +33,7 @@ func main() {
 			var waitResponse bool = false
 			if update.Message.IsCommand() == true {
 				processCommand(bot, update.Message.Command(), chatID, &waitResponse)
-				bot.
+				
 			} else {
 				if text != "" {
 					replay := fmt.Sprintf("%s? You are so annoying %s!", update.Message.Text, update.Message.From.FirstName)
@@ -52,6 +52,7 @@ func processCommand(bot *tgbotapi.BotAPI, command string, chatID int64, wait *bo
 		fmt.Println(chatID)
 		fmt.Println(command)
 		replay = command
+	
 	default:
 		replay = "I don't know what do you want"
 	}
