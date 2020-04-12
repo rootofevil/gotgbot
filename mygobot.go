@@ -8,10 +8,10 @@ import (
 	tgbotapi "github.com/Syfaro/telegram-bot-api"
 )
 
-const token = "947475124:AAFcOFjtk30GPhD3H0pMB5ELb41KAur5yEI"
-
 var configPath = "config.json"
 var config = loadConf(configPath)
+
+var token = config.Telegram.Token
 
 func main() {
 
@@ -46,7 +46,7 @@ func main() {
 						go findTag(update.Message, forward)
 					} else {
 
-						replay := fmt.Sprintf("%s? You are so annoying %s!", update.Message.Text, update.Message.From.FirstName)
+						replay := fmt.Sprintf("%s?\nDon't speak with me, %s! Only commands please.", update.Message.Text, update.Message.From.FirstName)
 						m := tgbotapi.NewMessage(update.Message.Chat.ID, replay)
 						m.ReplyToMessageID = update.Message.MessageID
 						bot.Send(m)

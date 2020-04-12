@@ -8,14 +8,17 @@ import (
 
 type Config struct {
 	Database DataBaseConfig
+	Telegram struct {
+		Token string `json:"token"`
+	} `json:"telegram"`
 }
 
 type DataBaseConfig struct {
 	Host     string `json:"host"`
-	Port     int    `json:"port": 3306,`
-	Database string `json:"database": "bot_1"`
-	User     string `json:"user": "bot1"`
-	Password string `json:"password": "bot1"`
+	Port     int    `json:"port"`
+	Database string `json:"database"`
+	User     string `json:"user"`
+	Password string `json:"password"`
 }
 
 func loadConf(path string) Config {
