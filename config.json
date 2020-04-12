@@ -1,9 +1,0 @@
-{
-    "database": {
-        "host": "192.168.0.101",
-        "port": 3306,
-        "database": "bot_1",
-        "user": "bot1",
-        "password": "bot1"
-    }
-}
