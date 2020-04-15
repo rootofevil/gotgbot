@@ -4,7 +4,7 @@ name: default
 
 workspace:
   base: /go
-  path: src/$DRONE_REPO/gotgbot
+  path: src/repo/gotgbot
 
 steps:
 - name: test
