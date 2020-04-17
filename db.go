@@ -24,25 +24,29 @@ func initDB() (db *sql.DB, err error) {
 }
 
 func addSubscribtion(chat int64, tags []string) error {
+
 	db, err := initDB()
 	if err != nil {
 		return err
 	}
 	defer db.Close()
 	query := "INSERT INTO subscriptions(chat, tag) values (?, ?)"
+	var errors error
 	for _, t := range tags {
 		stmt, err := db.Prepare(query)
 		if err != nil {
 			log.Println(err)
+			errors = fmt.Errorf("%w", err)
 		}
 		defer stmt.Close()
 		_, err = stmt.Exec(chat, t)
 
 		if err != nil {
 			log.Println(err)
+			errors = fmt.Errorf("%w", err)
 		}
 	}
-	return err
+	return errors
 }
 
 func getTagsList() (tags []string, err error) {
@@ -95,4 +99,29 @@ func getChatByTag(tag string) (chats []int64, err error) {
 		chats = append(chats, chat)
 	}
 	return
+}
+
+func deleteSubscriber(chats []int64) error {
+	db, err := initDB()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+	query := "DELETE FROM subscriptions WHERE chat = ?"
+	var errors error
+	for _, chat := range chats {
+		stmt, err := db.Prepare(query)
+		if err != nil {
+			log.Println(err)
+			errors = fmt.Errorf("%w", err)
+		}
+		defer stmt.Close()
+		_, err = stmt.Exec(chat)
+
+		if err != nil {
+			log.Println(err)
+			errors = fmt.Errorf("%w", err)
+		}
+	}
+	return errors
 }
