@@ -31,7 +31,7 @@ steps:
   - echo $DRONE_REMOTE_URL
   - echo $DRONE_REPO_LINK
   - echo $DRONE_GIT_SSH_URL
-  - sed -e "s/example_token/$CONFIG_TG_TOKEN/g" -e "s/example_host/$CONFIG_DB_HOST/g" -e "s/example_user/$CONFIG_DB_USERNAME/g" -e "s/example_database/$CONFIG_DB_NAME" -e "s/example_password/$CONFIG_DB_PASSWORD/g" config.json.example > config.json
+  - sed -e "s/example_token/$CONFIG_TG_TOKEN/g" -e "s/example_host/$CONFIG_DB_HOST/g" -e "s/example_user/$CONFIG_DB_USERNAME/g" -e "s/example_database/$CONFIG_DB_NAME/g" -e "s/example_password/$CONFIG_DB_PASSWORD/g" config.json.example > config.json
   - cat config.json
   - go test
   - go build
