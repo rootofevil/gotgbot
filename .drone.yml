@@ -9,6 +9,18 @@ workspace:
 steps:
 - name: test
   image: golang
+  environment:
+    CONFIG_TG_TOKEN:
+      from_secret: CONFIG_TG_TOKEN
+    CONFIG_DB_HOST:
+      from_secret: CONFIG_DB_HOST
+    CONFIG_DB_USERNAME:
+      from_secret: CONFIG_DB_USERNAME
+    CONFIG_DB_NAME:
+      from_secret: CONFIG_DB_NAME
+    CONFIG_DB_PASSWORD:
+      from_secret: CONFIG_DB_PASSWORD
+    
   commands:
   - echo $GOPATH
   - go get -u github.com/golang/dep/cmd/dep
@@ -19,6 +31,7 @@ steps:
   - echo $DRONE_REMOTE_URL
   - echo $DRONE_REPO_LINK
   - echo $DRONE_GIT_SSH_URL
-  - sed -i 's/token/hueken'
+  - sed -e 's/example_token/$CONFIG_TG_TOKEN/g' -e 's/example_host/$CONFIG_DB_HOST/g' -e 's/example_user/$CONFIG_DB_USERNAME/g' -e 'e/example_database/$CONFIG_DB_NAME' -e 's/example_password/$CONFIG_DB_PASSWORD/g' config.json.example > config.json
+  - cat config.json
   - go test
   - go build
