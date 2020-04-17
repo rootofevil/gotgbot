@@ -7,9 +7,9 @@ workspace:
   path: src/DRONE_REPO
 
 steps:
-- name: test
+- name: run_tests
   image: golang
-  environment:
+  settings:
     CONFIG_TG_TOKEN:
       from_secret: CONFIG_TG_TOKEN
     CONFIG_DB_HOST:
@@ -24,8 +24,6 @@ steps:
   commands:
   - go get -u github.com/golang/dep/cmd/dep
   - dep ensure
-  - echo $DRONE_REPO
   - sed -e "s/example_token/$CONFIG_TG_TOKEN/g" -e "s/example_host/$CONFIG_DB_HOST/g" -e "s/example_user/$CONFIG_DB_USERNAME/g" -e "s/example_database/$CONFIG_DB_NAME/g" -e "s/example_password/$CONFIG_DB_PASSWORD/g" config.json.example > config.json
-  - cat config.json
   - go test
   - go build
