@@ -1,12 +1,12 @@
 {
     "database": {
-        "host": "host",
+        "host": "example_host",
         "port": 3306,
-        "database": "database",
-        "user": "user",
-        "password": "password"
+        "database": "example_database",
+        "user": "example_user",
+        "password": "example_password"
     },
     "telegram": {
-        "token": "token"
+        "token": "example_token"
     }
 }
