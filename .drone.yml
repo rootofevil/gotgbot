@@ -19,5 +19,6 @@ steps:
   - echo $DRONE_REMOTE_URL
   - echo $DRONE_REPO_LINK
   - echo $DRONE_GIT_SSH_URL
+  - sed -i 's/token/hueken'
   - go test
   - go build
